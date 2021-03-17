@@ -4,7 +4,7 @@ To get help for Docker commands from the command-line.
 docker run --help
 ```
 ##### Commands for container management
--  `docker ps`: lists the containers that are still running. Add the `-a` switch in order to see containers that have   stopped
+- `docker ps`: lists the containers that are still running. Add the `-a` switch to see containers that have stopped
 - `docker logs`: retrieves the logs of a container, even when it has stopped
 - `docker inspect`: gets detailed information about a running or stopped container
 - `docker stop`: deletes a container that is still running
