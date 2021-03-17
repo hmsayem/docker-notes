@@ -27,14 +27,25 @@ docker run -d alpine ping www.docker.com
 ```
 > Note the addition of a -d switch. When doing so, the container starts, but we don’t see its output. Instead, the docker run command returns the ID of the container that was just created.
 
-##### Interacting with the running container
+#### Interacting with the Running Container
 To see the standard output of the docker:
 ```sh
-docker logs 789b
+docker logs <id>
 ```
 >The above command prints the whole standard output of the container from its beginning, which may be lengthy. `–from`, `–until`, or `–tail` `switches` are used to get a portion of the output. 
 
 Most recent 10 seconds of logs for the running container:
 ```sh
-docker logs --since 10s 789b
+docker logs --since 10s <id>
+```
+Stopping and cleaning up the runnning container:
+
+```sh
+docker stop <id>
+docker rm <id>
+```
+##### Listening for Incoming Network Connections 
+By default, a container runs in isolation, and as such, it doesn’t listen for incoming connections on the machine where it is running. You must explicitly open a port on the host machine and map it to a port on the container. Suppose I want to run the NGINX web server. It listens for incoming HTTP requests on port 80 by default. If I simply run the server, my machine does not route incoming requests to it unless I use the -p switch on the docker run command. The -p switch takes two parameters; the incoming port you want to open on the host machine, and the port to which it should be mapped inside the container. For instance, here is how I state that I want my machine to listen for incoming connections on port 8085 and route them to port 80 inside a container that runs NGINX:
+```sh
+docker run -d -p 8085:80 nginx
 ```
