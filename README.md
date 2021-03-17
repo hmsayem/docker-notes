@@ -10,7 +10,7 @@ docker run --help
 - `docker stop`: deletes a container that is still running
 - `docker rm`: deletes a container
 
-**To remove all containers**
+##### To remove all containers:
 ```sh
 docker container prune -f
 ```
