@@ -161,3 +161,16 @@ docker build -t pinger .
 docker run --rm pinger
 docker run --rm -e host=www.bing.com pinger
 ```
+### Storage
+It’s better to create images that result in stateless containers that rely on external data stores. Sometimes it's needed to storee the data in a persistent file system. When this need arises, the `VOLUME` instruction is used.
+```
+VOLUME /path/to/directory
+```
+> The /path/to/directory is a path to a directory used inside the image. When a container is created using the docker run command, the -v switch can be used to map this directory to an actual volume on the host system. By default, if the user doesn’t map this volume to an external store for the container, the data will be stored inside the container.
+
+### Networking
+When an image hosts server software, it listens on one or serveral ports. For instance, an HTTP server generally listens on the TCP port 80. It can be made explicit using an `EXPOSE` instruction.
+```
+EXPOSE 80
+```
+> Using this instruction is purely for documentation purposes. It will NOT open a port to the outside world when a container is created from that image.
