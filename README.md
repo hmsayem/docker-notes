@@ -16,7 +16,7 @@ docker container prune -f
 ```
 > This is the equivalent of running one `docker rm` command for each stopped container. The -f switch is an implicit confirmation to proceed and delete all stopped containers right away, instead of asking to confirm that operation.
 
-#### Running Server Container
+### Running Server Container
 Whether you want to host a web application, an API, or a database, you want a container that listens for incoming network connections and is potentially long-lived. A server container is long-lived and listens for incoming network connections. Running a container as detached means that you immediately get your command-line back and the standard output from the container is not redirected to your command-line anymore.
 ```sh
 docker run alpine ping www.docker.com
@@ -27,7 +27,7 @@ docker run -d alpine ping www.docker.com
 ```
 > Note the addition of a -d switch. When doing so, the container starts, but we don’t see its output. Instead, the docker run command returns the ID of the container that was just created.
 
-#### Interacting with the Running Container
+### Interacting with the Running Container
 To see the standard output of the docker:
 ```sh
 docker logs <id>
@@ -65,7 +65,7 @@ docker image ls
 ```
 The docker run command downloads images automatically when missing. The `docker pull` command forces an image to download, whether it is already present or not.
 
-##### Create an Image
+#### Create an Image
 A Docker image is created using the `docker build` command and a `Dockerfile` file. The Dockerfile file contains instructions on how the image should be built. A `Dockerfile` always begins with a FROM instruction because every image is based on another base image.  Here’s a `Dockerfile` that creates a Debian Linux-based image and instructs it to greet our users when a container spawns:
 ```
 FROM debian:8
@@ -78,7 +78,7 @@ docker build -t hello .
 ```
 >The -t switch is used in front of the desired image to give it a name. An image can be created without a name, it would have an auto-generated unique ID, so it is an optional parameter on the docker build command.
 
-##### Creating an Image Including Files
+#### Creating an Image Including Files
 The Docker Hub contains an NGINX image where NGINX has already been installed with a configuration that serves files found in the /usr/share/nginx/html directory.
 ```
 FROM nginx:1.15
@@ -110,7 +110,7 @@ docker build -t <name>:<tag> .
 
 ### Environment Variables
 
-##### Reading a Value
+#### Reading a Value
 
 If an environment variable `name` is set, it can be accessed with:
 
@@ -122,17 +122,17 @@ If an environment variable `name` is set, it can be accessed with:
 |Python|os.environ.get('name')|
 
 
-##### Providing a Value
+#### Providing a Value
 In order to provide an environment variable’s value at runtime, `-e name=value` parameter is used on the docker run command.
 
 
-##### Default Value
+#### Default Value
 A default value can be provided for an environment variable, in case it isn't provided when a container is created. This is done in the `Dockerfile`, using `ENV` instruction. 
 
 ```
 ENV name=Dockie
 ```
-###### Example:
+#### Example:
 
 Creating an image that can ping any given site using a Linux shell script. 
 
