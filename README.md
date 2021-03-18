@@ -117,7 +117,7 @@ If an environment variable `name` is set, it can be accessed with:
 | Technology  | Acess |
 | ------------- | ------------- |
 | Linux shell  | $name  |
-|Go|os.Getenv("FOO")|
+|Go|os.Getenv("name")|
 |   Java | System.getenv(“name”)  |
 |Python|os.environ.get('name')|
 
