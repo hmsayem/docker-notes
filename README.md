@@ -58,5 +58,106 @@ docker run -v /your/dir:/var/lib/mysql -d mysql:5.7
 ```
 > It will ensure that any data written to the `/var/lib/mysql` directory inside the container is actually written to the `/your/dir` directory on the host system. This ensures that the data is not lost when the container is restarted.
 
+### Docker Images
+Command to list the local images:
+```
+docker image ls
+```
+The docker run command downloads images automatically when missing. The `docker pull` command forces an image to download, whether it is already present or not.
+
+##### Create an Image
+A Docker image is created using the `docker build` command and a `Dockerfile` file. The Dockerfile file contains instructions on how the image should be built. A `Dockerfile` always begins with a FROM instruction because every image is based on another base image.  Here’s a `Dockerfile` that creates a Debian Linux-based image and instructs it to greet our users when a container spawns:
+```
+FROM debian:8
+CMD ["echo", "Hello world"]
+```
+
+The `docker build` command is run in order to create an image from my `Dockerfile`.
+```
+docker build -t hello .
+```
+>The -t switch is used in front of the desired image to give it a name. An image can be created without a name, it would have an auto-generated unique ID, so it is an optional parameter on the docker build command.
+
+##### Creating an Image Including Files
+The Docker Hub contains an NGINX image where NGINX has already been installed with a configuration that serves files found in the /usr/share/nginx/html directory.
+```
+FROM nginx:1.15
+COPY index.html /usr/share/nginx/html
+```
+```
+docker build -t webserver .
+docker run --rm -it -p 8082:80 webserver`
+```
+> - The -it switch allows user to stop the container using Ctrl-C from the command-line
+> - The –rm switch ensures that the container is deleted once it has stopped
+
+To see the images available locally on my computer by:
+```
+docker image ls
+```
+To remove an image:
+```
+docker rmi <id>
+docker rmi <repository> : <tag>
+```
+
+### Tags
+
+In order to apply a tag:
+```
+docker build -t <name>:<tag> .
+```
+
+### Environment Variables
+
+##### Reading a Value
+
+If an environment variable `name` is set, it can be accessed with:
+
+| Technology  | Acess |
+| ------------- | ------------- |
+| Linux shell  | $name  |
+|Go|os.Getenv("FOO")|
+|   Java | System.getenv(“name”)  |
+|Python|os.environ.get('name')|
 
 
+##### Providing a Value
+In order to provide an environment variable’s value at runtime, `-e name=value` parameter is used on the docker run command.
+
+
+##### Default Value
+A default value can be provided for an environment variable, in case it isn't provided when a container is created. This is done in the `Dockerfile`, using `ENV` instruction. 
+
+```
+ENV name=Dockie
+```
+###### Example:
+
+Creating an image that can ping any given site using a Linux shell script. 
+
+>ping.sh
+
+```
+#!/bin/sh
+
+echo "Pinging $host..."
+ping -c 5 $host
+```
+
+>Dockerfile
+```
+FROM debian:8
+
+ENV host=www.google.com
+
+COPY ping.sh .
+
+CMD ["sh", "ping.sh"]
+```
+>Commands
+```
+docker build -t pinger .
+docker run --rm pinger
+docker run --rm -e host=www.bing.com pinger
+```
