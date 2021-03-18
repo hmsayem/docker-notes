@@ -50,3 +50,13 @@ The -p switch takes two parameters; the incoming port you want to open on the ho
 docker run -d -p 8085:80 nginx
 ```
 > The machine listens for incoming connections on port 8085 and route them to port 80 inside a container that runs NGINX.
+
+### Using Volumes
+Volumes are used to store files in place where they are persisted. A directory inside the container can be mapped to a persistent storage using a volume. Persistent storages are managed through drivers, and they depend on the actual Docker host. They may be an Azure File Storage on Azure or Amazon S3 on AWS. Actual directories on the host system can be mapped using `-v` switch.
+```
+docker run -v /your/dir:/var/lib/mysql -d mysql:5.7
+```
+> It will ensure that any data written to the `/var/lib/mysql` directory inside the container is actually written to the `/your/dir` directory on the host system. This ensures that the data is not lost when the container is restarted.
+
+
+
