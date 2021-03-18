@@ -45,7 +45,8 @@ docker stop <id>
 docker rm <id>
 ```
 #### Listening for Incoming Network Connections 
-By default, a container runs in isolation, and as such, it doesn’t listen for incoming connections on the machine where it is running. You must explicitly open a port on the host machine and map it to a port on the container. Suppose I want to run the NGINX web server. It listens for incoming HTTP requests on port 80 by default. If I simply run the server, my machine does not route incoming requests to it unless I use the -p switch on the docker run command. The -p switch takes two parameters; the incoming port you want to open on the host machine, and the port to which it should be mapped inside the container. For instance, here is how I state that I want my machine to listen for incoming connections on port 8085 and route them to port 80 inside a container that runs NGINX:
+The -p switch takes two parameters; the incoming port you want to open on the host machine, and the port to which it should be mapped inside the container. 
 ```sh
 docker run -d -p 8085:80 nginx
 ```
+> The machine listens for incoming connections on port 8085 and route them to port 80 inside a container that runs NGINX.
