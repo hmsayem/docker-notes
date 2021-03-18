@@ -130,7 +130,7 @@ In order to provide an environment variable’s value at runtime, `-e name=value
 A default value can be provided for an environment variable, in case it isn't provided when a container is created. This is done in the `Dockerfile`, using `ENV` instruction. 
 
 ```
-ENV name=Dockie
+ENV name = <value>
 ```
 #### Example:
 
