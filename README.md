@@ -136,7 +136,7 @@ ENV name=<value>
 
 Creating an image that can ping any given site using a Linux shell script. 
 
-##### <code> ping.sh <code>
+<code> ping.sh </code>
 
 ```
 #!/bin/sh
