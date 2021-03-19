@@ -123,14 +123,14 @@ If an environment variable `name` is set, it can be accessed with:
 
 
 #### Providing a Value
-In order to provide an environment variable’s value at runtime, `-e name=value` parameter is used on the docker run command.
+In order to provide an environment variable’s value at runtime, `-e <variable_name>=<value>` parameter is used on the docker run command.
 
 
 #### Default Value
 A default value can be provided for an environment variable, in case it isn't provided when a container is created. This is done in the `Dockerfile`, using `ENV` instruction. 
 
 ```
-ENV name=<value>
+ENV <variable_name>=<value>
 ```
 #### Example:
 
@@ -174,3 +174,15 @@ When an image hosts server software, it listens on one or serveral ports. For in
 EXPOSE 80
 ```
 > Using this instruction is purely for documentation purposes. It will NOT open a port to the outside world when a container is created from that image.
+
+### Publishing an image
+The naming format for publishing an image is: `<docker_id>/<name>`\
+A Docker image can have several names as needed, and they can be added to an already existing image using the docker tag command. The docker tag doesn't duplicate the image contrary to running docker build again. The docker tag command accepts two arguments; first, the name of an existing image, and second, the name you want to add to that image.
+```
+docker tag <image_name> <new_name>
+```
+#### Publish to the Docker Hub
+```
+docker login
+docker push <name> 
+```
